@@ -1,0 +1,45 @@
+number: '0123456789'
+symbol: "!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ €₽"
+lang_char: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюяЂђЃѓЄєІіЇїЈјЉљЊњЋћЌќЎўЏџҐґҒғҚқҮүҲҳҶҷӀӏӢӣӨөӮӯ"
+experiment_name: 'cyrillic-v1'
+train_data: '/home/jovyan/workspace/AIArchitecture/HandWritingDescriptor'
+valid_data: '/home/jovyan/workspace/AIArchitecture/HandWritingDescriptor/cyrillic_handwriting_v1_test'
+manualSeed: 1111
+workers: 1
+batch_size: 64 #32
+num_iter: 300000
+valInterval: 1000
+saved_model: '/home/jovyan/workspace/AIArchitecture/HandWritingDescriptor/cyrillic_g2.pth' 
+FT: False
+optim: False # default is Adadelta
+lr: 0.1
+beta1: 0.9
+rho: 0.95
+eps: 0.00000001
+grad_clip: 5
+#Data processing
+select_data: 'cyrillic_handwriting_v1_train' # this is dataset folder in train_data
+batch_ratio: '1' 
+total_data_usage_ratio: 1.0
+batch_max_length: 34 
+imgH: 64
+imgW: 600
+rgb: False
+contrast_adjust: False
+sensitive: True
+PAD: True
+contrast_adjust: 0.0
+data_filtering_off: False
+# Model Architecture
+Transformation: 'None'
+FeatureExtraction: 'VGG'
+SequenceModeling: 'BiLSTM'
+Prediction: 'CTC'
+num_fiducial: 20
+input_channel: 1
+output_channel: 256
+hidden_size: 256
+decode: 'greedy'
+new_prediction: True
+freeze_FeatureFxtraction: False
+freeze_SequenceModeling: False
