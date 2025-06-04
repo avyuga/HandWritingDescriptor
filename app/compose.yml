@@ -1,0 +1,44 @@
+services:
+  triton-server:
+    image: nvcr.io/nvidia/tritonserver:24.10-py3 
+    command: ["tritonserver", "--model-repository=/models"]
+    ports:
+      - "9000:8000"  # порт HTTP API
+      - "9001:8001"  # порт gRPC API
+      - "9002:8002"  # метрический сервер Prometheus
+    volumes:
+      - ./triton-model-repository:/models 
+    environment:
+      - TRITON_MODEL_REPOSITORY=/models
+    runtime: nvidia  
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+
+  mongo-db:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-data:/data/db
+
+  tg-bot:
+    build: 
+      context: tg-bot/
+      dockerfile: ./Dockerfile        
+    volumes:
+      - ./tg-bot/:/app  
+
+  backend:
+    build: 
+      context: backend/
+      dockerfile: ./Dockerfile        
+    volumes:
+      - ./backend/:/app 
+    ports:
+      - "5000:5000"

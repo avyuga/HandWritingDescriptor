@@ -1,0 +1,6 @@
+numpy
+Pillow
+asyncio
+aiogram==3.7.0
+python-dotenv
+requests

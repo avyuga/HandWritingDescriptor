@@ -5,3 +5,6 @@ __pycache__/
 data/
 model_dir/
 *.pkl
+
+mongo-data/
+triton-model-repository/
